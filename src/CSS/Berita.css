@@ -1,0 +1,6 @@
+.container-News {
+    display: flex;
+    flex-direction: column; /* Menyusun elemen dalam satu kolom */
+    justify-content: flex-start; /* Mengatur posisi vertikal ke atas */
+    padding: 20px; /* Padding untuk elemen dalam container */
+  }

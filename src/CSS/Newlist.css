@@ -1,0 +1,60 @@
+/* NewsList.css */
+
+/* Styling for the news container */
+.news-container {
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+  }
+  
+  /* Styling for the news item */
+  /* NewsList.css */
+
+/* Styling for the news item */
+.news-item {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Align content to the right */
+    margin-bottom: 10px;
+  }
+  
+  /* Rest of your CSS styles... */
+  
+  
+  /* Styling for the news image container */
+  .news-image-container {
+    width: 100px; /* Adjust the width as needed */
+    height: 100px; /* Adjust the height as needed */
+    overflow: hidden;
+    margin-right: 10px;
+  }
+  
+  /* Styling for the news image */
+  .news-image {
+    width: 100%;
+    height: auto;
+    transition: opacity 0.3s ease-in-out;
+  }
+  
+  /* Apply the 'loading' class to the image during loading */
+  .news-image.loading {
+    opacity: 0.5;
+  }
+  
+  /* Apply the 'loaded' class to the image after loading */
+  .news-image.loaded {
+    opacity: 1;
+  }
+  
+  /* Styling for the news link */
+  .news-link {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+  
+  /* Hover effect for the news link */
+  .news-link:hover {
+    text-decoration: underline;
+  }
+  

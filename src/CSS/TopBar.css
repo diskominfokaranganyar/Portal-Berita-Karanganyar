@@ -1,0 +1,94 @@
+/* CSS/Topbar.css */
+/* Mengubah warna teks pada tooltip */
+.tooltip {
+    color: #fff;
+  }
+  
+  /* Mengubah latar belakang dan warna teks pada tooltip */
+  .tooltip {
+    background-color: #333333ae;
+    color: #fff;
+  }
+  
+  /* Mengubah ukuran font pada tooltip */
+  .tooltip {
+    font-size: 14px;
+  }
+  
+  /* Mengubah border dan padding pada tooltip */
+  .tooltip {
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  /* Mengubah opacity tooltip */
+  .tooltip {
+    opacity: 0.9;
+  }
+  
+  
+.fa-facebook {
+    color: #1877f2; /* Gantilah dengan kode warna sesuai merek Anda */
+  }
+  
+  /* Contoh: Warna ikon Twitter menjadi biru */
+  .fa-youtube {
+    color: #f21d3d; /* Gantilah dengan kode warna sesuai merek Anda */
+  }
+  
+  /* Contoh: Warna ikon Instagram menjadi merah */
+  .fa-instagram {
+    color: #bc2a8d; /* Gantilah dengan kode warna sesuai merek Anda */
+  }
+/* Gaya untuk ikon media sosial */
+.topsocial a {
+  font-size: 24px; /* Ukuran ikon */
+  margin-right: 10px; /* Jarak antara ikon */
+  text-decoration: none; /* Hapus garis bawah dari tautan */
+}
+
+/* Gaya untuk tautan menu */
+.topmenu ul {
+  list-style: none; /* Hapus daftar bawaan */
+  padding: 0;
+}
+
+.topmenu ul li {
+  margin-bottom: 10px; /* Jarak antara tautan */
+}
+
+.link-normal {
+  background-color: transparent; /* Atur latar belakang menjadi transparan */
+  color: rgba(45, 45, 45, 0.449); /* Warna teks biasa */
+  font-weight: bold;
+  font-size: 18px;
+  transition: background-color 0.3s, color 0.3s; /* Animasi perubahan warna latar belakang dan teks */
+  text-decoration: none; /* Hapus garis bawah dari tautan */
+}
+
+.link-normal:hover {
+  color: #000; /* Warna teks saat dihover */
+  text-decoration: none; /* Hapus garis bawah saat dihover */
+}
+
+/* Gaya untuk kotak pencarian */
+  
+  /* Awalnya, sembunyikan kotak pencarian */
+  .search-box {
+    height: 0;
+    font-size: 18px;
+    overflow: hidden;
+    transition: height 0.3s ease-in-out;
+  }
+  
+  /* Gaya untuk animasi saat kotak pencarian muncul */
+  .topsearch.open .search-box {
+    height: 30px; /* Atur tinggi sesuai kebutuhan Anda */
+  }
+  
+  /* Gaya lainnya untuk tampilan yang sesuai dengan kebutuhan Anda */
+  .topsearch a {
+    text-decoration: none;
+    font-size: 18px;
+    color: #333; /* Warna teks Anda */
+  }
