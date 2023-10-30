@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../CSS/Font.css";
 
-function Pertanian() {
+function Pendidikan() {
   const [berita, setBerita] = useState([]);
 
   useEffect(() => {
@@ -16,25 +16,13 @@ function Pertanian() {
       });
   }, []);
 
-  // Fungsi untuk mendapatkan kelas warna berdasarkan sentimen
-  const getSentimentColorClass = (score) => {
-    if (score > 0) {
-      return "btn-success"; // Hijau untuk sentimen positif
-    } else if (score < 0) {
-      return "btn-danger"; // Merah untuk sentimen negatif
+  const getSentimentColorClass = (sentiment) => {
+    if (sentiment === "Positif") {
+      return "btn-success"; // Green for positive sentiment
+    } else if (sentiment === "Negatif") {
+      return "btn-danger"; // Red for negative sentiment
     } else {
-      return "btn-secondary"; // Abu-abu untuk sentimen netral
-    }
-  };
-
-  // Fungsi untuk mendapatkan penjelasan sentimen
-  const getSentimentExplanation = (score) => {
-    if (score > 0) {
-      return "Positif"; // Penjelasan untuk sentimen positif
-    } else if (score < 0) {
-      return "Negatif"; // Penjelasan untuk sentimen negatif
-    } else {
-      return "Netral"; // Penjelasan untuk sentimen netral
+      return "btn-secondary"; // Gray for neutral sentiment
     }
   };
 
@@ -55,28 +43,52 @@ function Pertanian() {
                   <p className="card-text">
                     <button
                       className={`btn ${getSentimentColorClass(
-                        item.sentiment.score
+                        item.analisisSentimen
                       )}`}
                     >
-                      {getSentimentExplanation(item.sentiment.score)}
+                      {item.analisisSentimen}
                     </button>
                   </p>
-                  <a href={item.link} style={{ textDecoration: "none" }}> {/* Menghapus garis bawah */}
+
+                  <a href={item.link} style={{ textDecoration: "none" }}>
                     <h2
                       className="card-title"
-                      style={{ color: "black", transition: "color 0.3s", textAlign:"justify", fontSize:"30px" }}
+                      style={{
+                        color: "black",
+                        transition: "color 0.3s",
+                        textAlign: "justify",
+                        fontSize: "30px",
+                      }}
                       onMouseOver={(e) => (e.target.style.color = "blue")}
                       onMouseOut={(e) => (e.target.style.color = "black")}
                     >
                       {item.title}
                     </h2>
                   </a>
-                  <p style={{textAlign:"justify", fontSize:"20px"}}>{item.description}</p>
+                  <p style={{ textAlign: "justify", fontSize: "20px" }}>
+                    {item.description}
+                  </p>
                   <p className="card-text">
                     <small className="text-muted">
-                      Tanggal: {item.date} |
-                      Penulis: {item.author}
+                      Tanggal: {item.date} | Penulis: {item.author}
                     </small>
+                  </p>
+                  <p className="card-text">
+                    <strong>Kata-kata Sentimen:</strong>{" "}
+                    {item.kataKata.map((kata, idx) => (
+                      <span
+                        key={idx}
+                        className={
+                          kata.skor > 0
+                            ? "text-success"
+                            : kata.skor < 0
+                            ? "text-danger"
+                            : "text-secondary"
+                        }
+                      >
+                        {kata.kata} ({kata.skor})
+                      </span>
+                    ))}
                   </p>
                 </div>
               </div>
@@ -88,4 +100,4 @@ function Pertanian() {
   );
 }
 
-export default Pertanian;
+export default Pendidikan;

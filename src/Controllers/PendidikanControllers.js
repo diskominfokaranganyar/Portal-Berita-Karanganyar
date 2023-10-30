@@ -1,10 +1,13 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
 const Sentiment = require("sentiment");
+const KamusSentimen = require ("../Assets/Kamus/KamusSentimen.json");
+
+const kamusPositif = KamusSentimen.Positif;
+const kamusNegatif = KamusSentimen.Negatif;
 
 async function PendidikanControllers(res, url) {
   try {
-    // Mengambil data dari URL yang diberikan
     const response = await axios.get(url);
 
     if (response.status === 200) {
@@ -20,9 +23,31 @@ async function PendidikanControllers(res, url) {
         const date = $(element).find(".date").text().trim();
         const author = $(element).find(".author").text().trim();
 
-        // Analisis sentimen pada deskripsi berita
         const sentimentAnalysis = new Sentiment();
         const sentimentResult = sentimentAnalysis.analyze(description);
+
+        const words = description.split(" ");
+        let totalSentiment = 0;
+        let kataKata = [];
+
+        words.forEach(word => {
+          const cleanedWord = word.toLowerCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+          if (kamusPositif[cleanedWord]) {
+            totalSentiment += kamusPositif[cleanedWord];
+            kataKata.push({ kata: cleanedWord, skor: kamusPositif[cleanedWord] });
+          } else if (kamusNegatif[cleanedWord]) {
+            totalSentiment += kamusNegatif[cleanedWord];
+            kataKata.push({ kata: cleanedWord, skor: kamusNegatif[cleanedWord] });
+          }
+        });
+
+        // Menentukan hasil analisis apakah positif, negatif, atau netral
+        let analisisSentimen = "Netral";
+        if (totalSentiment > 0) {
+          analisisSentimen = "Positif";
+        } else if (totalSentiment < 0) {
+          analisisSentimen = "Negatif";
+        }
 
         newsList.push({
           imgSrc,
@@ -33,9 +58,12 @@ async function PendidikanControllers(res, url) {
           date,
           author,
           sentiment: sentimentResult,
+          analisisSentimen: analisisSentimen,
+          kataKata: kataKata, // Menambahkan kata-kata yang mengandung sentimen dan skornya
         });
       });
 
+      // Kirim newsList sebagai respons JSON
       res.json(newsList);
     } else {
       res.status(500).json({ error: "Gagal melakukan GET request" });
