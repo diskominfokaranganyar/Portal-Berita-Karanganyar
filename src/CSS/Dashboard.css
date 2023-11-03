@@ -1,0 +1,39 @@
+.sidebar-menu {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Start hidden outside the viewport */
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    transition: left 0.3s ease-in-out;
+  }
+  
+  .sidebar-menu.active {
+    left: 0;
+  }
+  
+  .menu-icon {
+    text-align: center;
+    padding: 20px;
+    cursor: pointer;
+    color: #fff;
+  }
+  
+  .menu-icon i {
+    font-size: 24px;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    padding: 10px 0;
+    text-align: center;
+  }
+  
+  li:hover {
+    background-color: #555;
+  }
+  
