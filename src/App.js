@@ -5,7 +5,6 @@ import {
   Routes,
   Outlet,
 } from "react-router-dom";
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import Logo from "./Components/Logo";
@@ -22,11 +21,10 @@ import Pariwisata from "./Pages/Pariwisata";
 import Beranda from "./Dashboard/Beranda";
 import Sidebar from "./Dashboard/Sidebar";
 import Navbar from "./Dashboard/Navigasi";
-import Dashboard from "./Components/Dashboard";
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sumber from "./Dashboard/Sumber";
+import BeritaDB from "./Dashboard/BeritaDB";
 
 function App() {
   return (
@@ -43,7 +41,7 @@ function App() {
           <Route path="/dashboard/*" element={<DashboardLayout />}>
             <Route index element={<Beranda />}/>
             <Route path="beranda" element={<Beranda />} />
-            <Route path="berita" element={<Beranda />} />
+            <Route path="berita" element={<BeritaDB />} />
             <Route path="sumber" element={<Sumber />} />
             <Route path="analisis" element={<Beranda />} />
           </Route>

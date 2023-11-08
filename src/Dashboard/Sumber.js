@@ -4,6 +4,7 @@ import axios from "axios";
 const App = () => {
   const [jumlahSolopos, setJumlahSolopos] = useState(0);
   const [jumlahDetikdetik, setJumlahDetikdetik] = useState(0);
+  const [jumlahSumberLain, setJumlahSumberLain] = useState(0); // Tambahkan state untuk jumlah sumber lain
   const [berita, setBerita] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -17,7 +18,7 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching Solopos data: " + error);
       });
-
+  
     axios
       .get("http://localhost:5000/api/jumlah-detikdetik")
       .then((response) => {
@@ -26,7 +27,7 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching DetikDetik data: " + error);
       });
-
+  
     axios
       .get("http://localhost:5000/api/semua-berita")
       .then((response) => {
@@ -35,7 +36,19 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching Berita data: " + error);
       });
+  
+    axios
+      .get("http://localhost:5000/api/semua-berita-lainnya")
+      .then((response) => {
+        setJumlahSumberLain(response.data.jumlah_Sumber_Lain || 0); // Gunakan operator ternary untuk mengisi dengan 0 jika tidak ada data
+      })
+      .catch((error) => {
+        console.error("Error fetching Berita data: " + error);
+      });
   }, []);
+  
+
+  const jumlahTotalBerita = berita.length; // Hitung jumlah total berita
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -61,9 +74,9 @@ const App = () => {
 
   return (
     <div className="container-fluid">
-      <div className="row g-3 my-2">
+      <div className="row g-3 my-4">
         <div className="col-md-3 mx-auto">
-          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded">
+          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded text-center">
             <div>
               <p>Solopos</p>
               <h3>{jumlahSolopos}</h3>
@@ -71,7 +84,7 @@ const App = () => {
           </div>
         </div>
         <div className="col-md-3 mx-auto">
-          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded">
+          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded text-center">
             <div>
               <p>DetikDetik</p>
               <h3>{jumlahDetikdetik}</h3>
@@ -79,18 +92,18 @@ const App = () => {
           </div>
         </div>
         <div className="col-md-3 mx-auto">
-          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded">
+          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded text-center">
             <div>
-              <p>Solopos</p>
-              <h3>{jumlahSolopos}</h3>
+              <p>Sumber lain</p>
+              <h3>{jumlahSumberLain}</h3>
             </div>
           </div>
         </div>
         <div className="col-md-3 mx-auto">
-          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded">
+          <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded text-center">
             <div>
-              <p>DetikDetik</p>
-              <h3>{jumlahDetikdetik}</h3>
+              <p>Total Berita</p>
+              <h3>{jumlahTotalBerita}</h3>
             </div>
           </div>
         </div>
@@ -123,12 +136,12 @@ const App = () => {
             </ul>
           </nav>
           {/* Tabel Berita */}
-          <table className="table table-bordered">
+          <table className="table table-bordered custom-shadow">
             <thead>
-              <tr>
-                <th className="text-center">No</th>
-                <th className="text-center">Judul Berita</th>
-                <th className="text-center">Sumber Berita</th>
+              <tr className="text-center fs-">
+                <th>No</th>
+                <th Judul Berita></th>
+                <th>Sumber Berita</th>
               </tr>
             </thead>
             <tbody>
