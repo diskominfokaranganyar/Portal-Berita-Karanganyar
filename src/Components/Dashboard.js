@@ -1,30 +1,40 @@
-import React, { useState } from "react";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
+import React, { useState } from 'react';
 import Sidebar from "../Dashboard/Sidebar";
-import Beranda from "../Dashboard/Beranda";
+import Navbar from "../Dashboard/Navigasi";
+import { Route, Routes,Outlet } from 'react-router-dom';
 
 const Dashboard = () => {
-  const [toggle, setToggle] = useState(true);
+  const [sidebarVisible, setSidebarVisible] = useState(true);
 
-  const Toggle = () => {
-    setToggle(!toggle);
+  const toggleSidebar = () => {
+    setSidebarVisible(!sidebarVisible);
   };
 
   return (
-    <div className="container-fluid bg-secondary min-vh-100">
+    <div className="container-fluid bg-secondary ">
       <div className="row">
-        {toggle && (
-          <div className="col-2 col-md-2 bg-white vh-100">
+        {sidebarVisible && (
+          <div className="col-2 col-md-2 bg-white vh-auto">
             <Sidebar />
           </div>
         )}
-        <div className={toggle ? "col-10 col-md-10" : "col-12 col-md-12"}>
-          <Beranda Toggle={Toggle} />
+        <div className={sidebarVisible ? "col-10 col-md-10" : "col-12 col-md-12"}>
+          <Navbar Toggle={toggleSidebar} />
+          <Outlet />
         </div>
       </div>
     </div>
   );
 };
+
+function Layout () {
+  return (
+    <>
+    <Sidebar/>
+    <Navbar/>
+    <Outlet/>
+    </>
+  );
+}
 
 export default Dashboard;
