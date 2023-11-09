@@ -4,8 +4,9 @@ import axios from "axios";
 const App = () => {
   const [jumlahSolopos, setJumlahSolopos] = useState(0);
   const [jumlahDetikdetik, setJumlahDetikdetik] = useState(0);
-  const [jumlahSumberLain, setJumlahSumberLain] = useState(0); // Tambahkan state untuk jumlah sumber lain
+  const [jumlahSumberLain, setJumlahSumberLain] = useState(0);
   const [berita, setBerita] = useState([]);
+  const [jumlahTotalBerita, setJumlahTotalBerita] = useState(0); // Menambah state untuk jumlah total berita
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -18,7 +19,7 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching Solopos data: " + error);
       });
-  
+
     axios
       .get("http://localhost:5000/api/jumlah-detikdetik")
       .then((response) => {
@@ -27,7 +28,7 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching DetikDetik data: " + error);
       });
-  
+
     axios
       .get("http://localhost:5000/api/semua-berita")
       .then((response) => {
@@ -36,19 +37,25 @@ const App = () => {
       .catch((error) => {
         console.error("Error fetching Berita data: " + error);
       });
-  
+
     axios
       .get("http://localhost:5000/api/semua-berita-lainnya")
       .then((response) => {
-        setJumlahSumberLain(response.data.jumlah_Sumber_Lain || 0); // Gunakan operator ternary untuk mengisi dengan 0 jika tidak ada data
+        setJumlahSumberLain(response.data.jumlah_Sumber_Lain || 0);
       })
       .catch((error) => {
         console.error("Error fetching Berita data: " + error);
       });
-  }, []);
-  
 
-  const jumlahTotalBerita = berita.length; // Hitung jumlah total berita
+    axios
+      .get("http://localhost:5000/api/jumlah-total-berita")
+      .then((response) => {
+        setJumlahTotalBerita(response.data.jumlah_total_berita);
+      })
+      .catch((error) => {
+        console.error("Error fetching Total Berita data: " + error);
+      });
+  }, []);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -110,7 +117,6 @@ const App = () => {
       </div>
       <div className="row my-4">
         <div className="col-md-12">
-          {/* page */}
           <nav>
             <ul className="pagination">
               {Array(displayPageCount)
@@ -135,12 +141,11 @@ const App = () => {
                 })}
             </ul>
           </nav>
-          {/* Tabel Berita */}
           <table className="table table-bordered custom-shadow">
             <thead>
               <tr className="text-center fs-">
                 <th>No</th>
-                <th Judul Berita></th>
+                <th>Judul Berita</th>
                 <th>Sumber Berita</th>
               </tr>
             </thead>
@@ -149,7 +154,7 @@ const App = () => {
                 <tr key={index}>
                   <td>{item.id}</td>
                   <td>{item.title}</td>
-                  <td>{item.url_sumber.slice(0, 30) + "......"}</td>
+                  <td>{item.link.slice(0, 30) + "......"}</td>
                 </tr>
               ))}
             </tbody>
