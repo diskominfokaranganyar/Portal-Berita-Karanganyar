@@ -67,19 +67,63 @@ async function PendidikanControllers(res, url) {
           analisisSentimen = "Negatif";
         }
 
+        // Simpan berita ke dalam database Berita_Solopos
         const insertQuery = `
-        INSERT INTO Berita_Solopos (imgSrc, category, title, link, description, date, author, sentiment)
+        INSERT IGNORE INTO Berita_Solopos(imgSrc, category, title, link, description, date, author, sentiment)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-      `;
+        ON DUPLICATE KEY UPDATE
+          imgSrc = VALUES(imgSrc),
+          category = VALUES(category),
+          title = VALUES(title),
+          description = VALUES(description),
+          date = VALUES(date),
+          author = VALUES(author),
+          sentiment = VALUES(sentiment);
 
+      `;
+      
       db.query(
         insertQuery,
         [imgSrc, category, title, link, description, date, author, JSON.stringify(sentimentResult)],
         (err, results) => {
           if (err) {
-            console.error("Gagal menyimpan berita:", err);
+            if (err.code === 'ER_DUP_ENTRY') {
+              console.warn("Data sudah ada dalam database, diabaikan.");
+            } else {
+              console.error("Gagal menyimpan berita:", err);
+            }
           } else {
-            console.log("Berita berhasil disimpan ke database");
+            console.log("Berita Pendidikan berhasil disimpan ke database Solopos");
+          }
+        }
+      );
+        // Simpan berita ke dalam database Berita_Pendidikan
+        const insertQueryBeritaPendidikan = `
+        INSERT IGNORE INTO Berita_Pendidikan(imgSrc, category, title, link, description, date, author, sentiment)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        ON DUPLICATE KEY UPDATE
+          imgSrc = VALUES(imgSrc),
+          category = VALUES(category),
+          title = VALUES(title),
+          description = VALUES(description),
+          date = VALUES(date),
+          author = VALUES(author),
+          sentiment = VALUES(sentiment);
+
+      `;
+      
+      db.query(
+        insertQueryBeritaPendidikan,
+        [imgSrc, category, title, link, description, date, author, JSON.stringify(sentimentResult)],
+        (err, results) => {
+          if (err) {
+            if (err.code === 'ER_DUP_ENTRY') {
+              console.warn("Data sudah ada dalam database, diabaikan.");
+            } else {
+              console.error("Gagal menyimpan berita:", err);
+            }
+          } else {
+            console.log("Berita Pendidikan berhasil disimpan ke database Pendidikan");
           }
         }
       );

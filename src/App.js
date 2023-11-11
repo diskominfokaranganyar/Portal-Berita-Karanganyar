@@ -25,6 +25,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Sumber from "./Dashboard/Sumber";
 import BeritaDB from "./Dashboard/BeritaDB";
+import Analisis from "./Dashboard/Analisis";
 
 function App() {
   return (
@@ -43,7 +44,7 @@ function App() {
             <Route path="beranda" element={<Beranda />} />
             <Route path="berita" element={<BeritaDB />} />
             <Route path="sumber" element={<Sumber />} />
-            <Route path="analisis" element={<Beranda />} />
+            <Route path="analisis" element={<Analisis />} />
           </Route>
       </Routes>
     </Router>

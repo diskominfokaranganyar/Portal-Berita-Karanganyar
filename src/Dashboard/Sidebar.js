@@ -19,13 +19,9 @@ const Sidebar = () => {
       </div>
       <hr className="text-drak" />
       <div className="list-group list-group-flush">
-        <NavLink to="/dashboard" className='list-group-item py-2 my-1' role="button">
+        <NavLink to="/dashboard/" className='list-group-item py-2 my-1' role="button">
           <BsSpeedometer2 className='fs-4 me-3' />
           <span>Dashboard</span>
-        </NavLink>
-        <NavLink to="beranda" className='list-group-item py-2 my-1' role="button">
-          <BsHouse className='fs-5 me-3' />
-          <span>Beranda</span>
         </NavLink>
         <NavLink to="berita" className='list-group-item py-2 my-1' role="button">
           <BsNewspaper className='fs-5 me-3' />

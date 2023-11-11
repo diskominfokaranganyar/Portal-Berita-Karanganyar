@@ -69,20 +69,58 @@ async function HotNewsControllers(res, url) {
           analisisSentimen = "Negatif";
         }
 
-        // Simpan berita ke dalam database
+        // Simpan berita ke dalam database Berita detik
         const insertQuery = `
           INSERT INTO berita_detik (judul, tanggal, isi, beritaLink, gambarURL, sentiment)
           VALUES (?, ?, ?, ?, ?, ?)
+          ON DUPLICATE KEY UPDATE
+          judul=VALUES(judul),
+          tanggal=VALUES(tanggal),
+          isi=VALUES(isi),
+          gambarURL=VALUES(gambarURL),
+          sentiment=VALUES(sentiment)
         `;
 
         db.query(
           insertQuery,
           [judul, tanggal, isi, beritaLink, gambarURL, JSON.stringify(sentimentResult)],
-          (err, results) => {
-            if (err) {
-              console.error("Gagal menyimpan berita:", err);
+          (errDetik, resultsDetik) => {
+            if (errDetik) {
+              if (errDetik.code === "ER_DUP_ENTRY") {
+                console.warn("Data sudah ada dalam database, diabaikan.");
+              } else {
+                console.error("Gagal menyimpan berita Detik:", errDetik);
+              }
             } else {
-              console.log("Berita berhasil disimpan ke database");
+              console.log("Berita Detik berhasil disimpan ke database Detik");
+            }
+          }
+        );
+
+        // Simpan berita ke dalam database Berita Pemerintahan
+        const insertQueryPemerintahan = `
+          INSERT INTO berita_Pemerintahan (judul, tanggal, isi, beritaLink, gambarURL, sentiment)
+          VALUES (?, ?, ?, ?, ?, ?)
+          ON DUPLICATE KEY UPDATE
+          judul=VALUES(judul),
+          tanggal=VALUES(tanggal),
+          isi=VALUES(isi),
+          gambarURL=VALUES(gambarURL),
+          sentiment=VALUES(sentiment)
+        `;
+
+        db.query(
+          insertQueryPemerintahan,
+          [judul, tanggal, isi, beritaLink, gambarURL, JSON.stringify(sentimentResult)],
+          (errPemerintahan, resultsPemerintahan) => {
+            if (errPemerintahan) {
+              if (errPemerintahan.code === "ER_DUP_ENTRY") {
+                console.warn("Data sudah ada dalam database, diabaikan.");
+              } else {
+                console.error("Gagal menyimpan berita Pemerintahan:", errPemerintahan);
+              }
+            } else {
+              console.log("Berita Pemerintahan berhasil disimpan ke database Pemerintahan");
             }
           }
         );
