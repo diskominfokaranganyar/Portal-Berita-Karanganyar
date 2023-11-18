@@ -109,7 +109,7 @@ app.get('/api/beritaPertanian', async (req, res) => {
       }
 
       const count = results[0].count;
-      res.json({ title: 'Berita Olahraga', count });
+      res.json({ title: 'Berita Pertanian', count });
     });
   } catch (error) {
     res.status(500).json({ error: 'Terjadi kesalahan' });

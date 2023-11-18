@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import TemaChart from '../Components/tema';
 
 const BeritaTema = () => {
   const [temaData, setTemaData] = useState([]);
@@ -27,22 +28,26 @@ const BeritaTema = () => {
   }, []);
 
   return (
-    <div className="container">
-      <h1 className="text-center mt-4">Jumlah Berita Per Tema</h1>
-      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mt-4">
+    <div className="container-fluid">
+      <div className="row g-3 my-3">
         {temaData.map((tema, index) => (
-          <div key={index} className="col">
-            <div className="card">
-              <div className="card-body">
-                <h5 className="card-title">{tema.title}</h5>
-                <p className="card-text">{tema.count} Berita</p>
+          <div key={index} className="col-md-4 mx-auto">
+            <div className="p-3 bg-white shadow-sm d-flex justify-content-center align-items-center flex-column rounded text-center">
+              <div>
+                <p>{tema.title}</p>
+                <h3>{tema.count} Berita</h3>
               </div>
             </div>
           </div>
         ))}
       </div>
+      <div className=''>
+        <div>
+          <TemaChart/>
+        </div>
+      </div>
     </div>
   );
-};
-
+  
+}
 export default BeritaTema;

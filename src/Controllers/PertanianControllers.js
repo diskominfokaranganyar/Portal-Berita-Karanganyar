@@ -127,6 +127,28 @@ async function PertanianControllers(res, url) {
          }
        );
 
+       const insertQuerysentiment = `
+  INSERT IGNORE INTO sentiment_solopos (imgSrc, category, title, link, description, date, author, sentiment, analisisSentimen, kataKata)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+`;
+
+db.query(
+  insertQuerysentiment,
+  [imgSrc, category, title, link, description, date, author, JSON.stringify(sentimentResult), analisisSentimen, JSON.stringify(kataKata)],
+  (err, results) => {
+    if (err) {
+      console.error("Gagal menyimpan berita:", err);
+    } else {
+      if (results.affectedRows > 0) {
+        console.log("Berita berhasil disimpan ke database");
+      } else {
+        console.warn("Data sudah ada dalam database, diabaikan.");
+      }
+    }
+  }
+);
+
+
         newsList.push({
           imgSrc,
           category,

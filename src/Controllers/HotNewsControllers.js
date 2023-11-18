@@ -125,6 +125,28 @@ async function HotNewsControllers(res, url) {
           }
         );
 
+        
+        const insertQuerySentiment = `
+  INSERT IGNORE INTO Sentiment_detik (judul, tanggal, isi, beritaLink, gambarURL, sentiment, analisisSentimen, kataKata)
+  VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+`;
+
+db.query(
+  insertQuerySentiment,
+  [judul, tanggal, isi, beritaLink, gambarURL, JSON.stringify(sentimentResult), analisisSentimen, JSON.stringify(kataKata)],
+  (err, results) => {
+    if (err) {
+      console.error("Gagal menyimpan berita:", err);
+    } else {
+      if (results.affectedRows > 0) {
+        console.log("Berita berhasil disimpan ke database sentiment detik");
+      } else {
+        console.warn("Data sudah ada dalam database detik, diabaikan.");
+      }
+    }
+  }
+);
+
         newsList.push({
           judul,
           tanggal,

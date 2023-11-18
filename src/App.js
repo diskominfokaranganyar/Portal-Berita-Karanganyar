@@ -5,8 +5,6 @@ import {
   Routes,
   Outlet,
 } from "react-router-dom";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import 'bootstrap-icons/font/bootstrap-icons.css';
 import Logo from "./Components/Logo";
 import Home from "./Components/Home";
 import Navigation from "./Components/Navigasi";
@@ -72,7 +70,7 @@ function DashboardLayout() {
   };
 
   return (
-    <div className="container-fluid bg-secondary min-vh-100">
+    <div className="container-fluid bg-white min-vh-100">
       <div className="row">
         {sidebarVisible && (
           <div className="col-2 col-md-2 bg-white vh-100">
