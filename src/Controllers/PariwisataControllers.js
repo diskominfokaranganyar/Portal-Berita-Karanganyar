@@ -2,27 +2,11 @@ const axios = require("axios");
 const cheerio = require("cheerio");
 const Sentiment = require("sentiment");
 const KamusSentimen = require ("../Assets/Kamus/KamusSentimen.json");
-const mysql = require("mysql2");
 
 const kamusPositif = KamusSentimen.Positif;
 const kamusNegatif = KamusSentimen.Negatif;
 
-// Konfigurasi koneksi ke database MySQL
-const db = mysql.createConnection({
-  host: "localhost", // Ganti dengan alamat host database Anda
-  user: "root", // Ganti dengan nama pengguna database Anda
-  password: "", // Ganti dengan kata sandi database Anda
-  database: "portalberita", // Ganti dengan nama database Anda
-});
-
-// Terhubung ke database
-db.connect((err) => {
-  if (err) {
-    console.error("Koneksi ke database gagal: " + err.message);
-  } else {
-    console.log("Terhubung ke database");
-  }
-});
+const db = require("../Database/DB");
 
 async function PariwisataControllers(res, url) {
   try {
