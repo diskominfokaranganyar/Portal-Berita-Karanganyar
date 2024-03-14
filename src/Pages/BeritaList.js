@@ -9,7 +9,7 @@ function BeritaList() {
   useEffect(() => {
     // Mengambil data dari server scraping
     axios
-      .get("http://localhost:4000/list")
+      .get(process.env.REACT_APP_API_ENDPOINT + "/list")
       .then((response) => {
         setBerita(response.data);
       })

@@ -7,7 +7,7 @@ function Pariwisata() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:4000/Pariwisata") // Ganti URL dengan URL server backend Anda
+      .get(process.env.REACT_APP_API_ENDPOINT + "/Pariwisata") // Ganti URL dengan URL server backend Anda
       .then((response) => {
         setBerita(response.data);
       })
