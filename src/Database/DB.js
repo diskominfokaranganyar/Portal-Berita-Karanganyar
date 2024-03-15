@@ -6,6 +6,7 @@ const dbConfig = {
   user: 'root',
   password: '',
   database: 'portalberita',
+  connectTimeout: 100000
 };
 
 // Buat objek koneksi
